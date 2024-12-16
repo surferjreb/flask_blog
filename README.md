@@ -41,7 +41,8 @@
     2. In this file is where you will place the environment variables.
     3. Set `FLASK_APP=flaskblog.py`
 
-    > [!NOTE] The `FLASK_APP` is the only variable that needs to be added to the `.env` file or to the OS environment for the app to work.
+    > [!NOTE]
+	> The `FLASK_APP` is the only variable that needs to be added to the `.env` file or to the OS environment for the app to work.
 
 5. Start the app
     - `flask run`
