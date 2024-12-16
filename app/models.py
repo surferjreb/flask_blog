@@ -45,12 +45,14 @@ class User(UserMixin, db.Model):
                                        unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(200))
     posts: Mapped[List["BlogPost"]] = relationship(back_populates="author")
+    comments: Mapped[List["Comment"]] = relationship(back_populates="author")
 
 class Comment(db.Model):
     __tablename__ = "comments"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    author: Mapped[str] = mapped_column(String(250), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    author: Mapped["User"] = mapped_column(String(250), nullable=False)
     body: Mapped[str] = mapped_column(Text, nullable=False)
     post_id: Mapped[int] = mapped_column(ForeignKey("blogs.id"))
     post: Mapped["BlogPost"] = relationship(back_populates="blog_comments")
