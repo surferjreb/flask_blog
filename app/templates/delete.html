@@ -1,0 +1,27 @@
+{% extends 'post.html' %}
+
+{% block content %}
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+		<h1>Delete Post</h1>
+        <h3>Are you sure?...</h3>
+	      {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class=flashes>
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+	      {% endif %}
+          {% endwith %}
+	    <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+		  <button type="submit" class="btn btn-danger" >Delete</button>
+		  <a href="{{ url_for('get_all_posts') }}" class="btn btn-primary">Cancel</a>
+	    </form>
+	  </div>
+	</div>
+  </div>
+{% endblock %}
+
+
