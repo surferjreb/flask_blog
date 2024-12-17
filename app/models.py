@@ -2,6 +2,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Text, select, update, ForeignKey
 from typing import List
 from flask_login import UserMixin, current_user
+from flask import abort
 from functools import wraps
 from app import db, login_manager
 
@@ -45,14 +46,15 @@ class User(UserMixin, db.Model):
                                        unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(200))
     posts: Mapped[List["BlogPost"]] = relationship(back_populates="author")
-    comments: Mapped[List["Comment"]] = relationship(back_populates="author")
+    u_comments: Mapped[List["Comment"]] = relationship(back_populates="c_author")
 
 class Comment(db.Model):
     __tablename__ = "comments"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
-    author: Mapped["User"] = mapped_column(String(250), nullable=False)
+    date: Mapped[str] = mapped_column(String(50), nullable=False)
+    author_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    c_author: Mapped["User"] = relationship(back_populates="u_comments")
     body: Mapped[str] = mapped_column(Text, nullable=False)
     post_id: Mapped[int] = mapped_column(ForeignKey("blogs.id"))
     post: Mapped["BlogPost"] = relationship(back_populates="blog_comments")
