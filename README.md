@@ -7,7 +7,7 @@
 
 > Simple blog created using flask.
 
-## Dependecies
+## Dependencies
 
 > python 3.12
 > alother dependencies can be installed using `requirements.txt`
