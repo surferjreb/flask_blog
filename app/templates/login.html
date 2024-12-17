@@ -21,16 +21,19 @@ include "header.html" %}
 <main class="mb-4">
   <div class="container">
     <div class="row">
-      <!-- TODO: add a flash message here for users registering twice -->
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          <ul class=flashes>
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
+      {% if current_user.is_authenticated %}
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
           </ul>
-        {% endif %}
-      {% endwith %}
+          {% endif %}
+        {% endwith %}
+      </div>
+      {% endif %}
       <div class="col-lg-8 col-md-10 mx-auto">
         <!--TODO: render login form here-->
         {{ render_form(form) }}
