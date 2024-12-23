@@ -1,4 +1,4 @@
 .venv
 .env
 main.py.bak
-app/posts.db
+posts.db
